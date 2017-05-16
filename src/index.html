@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Angular Tablesort</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/styles/tablesort.css" />
+</head>
+
+<body>
+
+    <div ng-app="tableSort" class="container">
+        <br>
+        <br>
+        <div ng-controller="TestTableSortController" ng-init="initialize()">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="tablesort-sortable" ng-repeat="header in columns" ng-click="changeSorting(header.label)" ng-style="{'width':header.width}"
+                            ng-class="sortedColumn(header.label)">
+                            {{header.label}}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in tableData | orderBy:sort.sortingOrder:sort.reverse">
+                        <td ng-repeat="cell in row">
+                            {{cell}}
+                        </td>
+                    </tr>
+                    <tr ng-if="!tableData || tableData.length == 0">
+                        <td colspan="{{columns.length}}" style="text-align:center;"> {{noDataText}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
